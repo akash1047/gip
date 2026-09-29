@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+while IFS= read -r -d '' file; do
+  git show ":$file" | GIP_HOOK_FILE="$file" awk '
+    length($0) > 80 { printf "%s:%d: line exceeds 80 characters\n", ENVIRON["GIP_HOOK_FILE"], NR > "/dev/stderr" }
+  '
+done < <(git diff --cached --name-only --diff-filter=ACMR -z -- '*.md')
+
+exit 0

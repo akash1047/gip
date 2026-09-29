@@ -9,8 +9,10 @@ README.md for the product description.
 
 ## State
 
-Repo is empty — no code, no chosen language/framework, no build system yet.
-Don't assume any of these exist; check before referencing them.
+The only implementation is `.githooks/pre-commit`, a Bash warning hook for
+staged Markdown lines over 80 characters. Enable it with
+`git config core.hooksPath .githooks`. There is no chosen application
+language/framework or build system yet.
 
 ## Guidelines
 
