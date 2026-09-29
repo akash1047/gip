@@ -13,6 +13,10 @@ PR (title, body, comments, metadata) via the GitHub API and write it out as
 a markdown file with consistent structure (frontmatter + body), suitable for
 archiving, indexing, or feeding into other tools.
 
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines, branching workflow, and code of conduct.
+
 ## License
 
-TBD
+[MIT](LICENSE)
