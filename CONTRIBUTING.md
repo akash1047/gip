@@ -4,16 +4,22 @@ Thank you for your interest in contributing to GIP!
 
 ## Current Project State
 
-GIP is in its early stages. There is currently no chosen language, framework, or build system. Please avoid scaffolding speculative structure (config files, CI, abstractions) before there is real code requiring it. When introducing implementation work, keep the stack as minimal and workable as possible.
+GIP is in its early stages. There is currently no chosen language,
+framework, or build system. Please avoid scaffolding speculative structure
+(config files, CI, abstractions) before there is real code requiring it.
+When introducing implementation work, keep the stack as minimal and
+workable as possible.
 
 ## Code of Conduct
 
-Everyone contributing to GIP is expected to adhere to our [Code of Conduct](CODE_OF_CONDUCT.md).
+Everyone contributing to GIP is expected to adhere to our
+[Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## Workflow Overview
 
 1. **Every change starts with an issue.**
-   - Open a feature request or bug report using the templates in [`.github/ISSUE_TEMPLATE/`](.github/ISSUE_TEMPLATE/).
+   - Open a feature request or bug report using the templates in
+     [`.github/ISSUE_TEMPLATE/`](.github/ISSUE_TEMPLATE/).
    - Discuss proposed changes in the issue before starting implementation.
 2. **Every pull request must close exactly one issue.**
    - Link the issue in your PR description using `Closes #N`.
@@ -21,10 +27,13 @@ Everyone contributing to GIP is expected to adhere to our [Code of Conduct](CODE
 
 ## Git Branching Model
 
-- **Long-lived branches:** `main` and `develop`. Both maintain a strictly linear history (no merge commits).
-- **PR branches:** All work should be done in short-lived branches created from and targeted against `develop`.
+- **Long-lived branches:** `main` and `develop`. Both maintain a strictly
+  linear history (no merge commits).
+- **PR branches:** All work should be done in short-lived branches created
+  from and targeted against `develop`.
 - **Merging:** Pull requests into `develop` are squash-merged.
-- **Releases:** Merging `develop` into `main` is performed manually by the repository maintainer.
+- **Releases:** Merging `develop` into `main` is performed manually by the
+  repository maintainer.
 
 ### Workflow Example
 
@@ -46,14 +55,18 @@ git push -u origin feat/your-feature-name
 
 ## Commit Message Guidelines
 
-We follow the [Conventional Commits](https://www.conventionalcommits.org/) specification:
+We follow the [Conventional Commits](https://www.conventionalcommits.org/)
+specification:
 
-- Format: `type(scope): summary` (e.g. `feat(parser): add initial markdown serializer`, `fix(cli): handle missing token error`).
-- Use lowercase for types: `feat`, `fix`, `docs`, `chore`, `refactor`, `test`, etc.
+- Format: `type(scope): summary` (e.g. `feat(parser): add markdown serializer`,
+  `fix(cli): handle missing token error`).
+- Use lowercase for types: `feat`, `fix`, `docs`, `chore`, `refactor`, `test`,
+  etc.
 - Keep summaries concise and imperative.
-- Do not include tool attribution, co-author tags, or session lines (e.g. avoid `Co-Authored-By:` or "Generated with" tags). Plain Conventional Commit messages only.
 
 ## Submitting Pull Requests
 
 - Open pull requests against the `develop` branch.
-- Fill out the [Pull Request Template](.github/pull_request_template.md) completely, including the `Closes #N` reference and a brief summary of verification.
+- Fill out the [Pull Request Template](.github/pull_request_template.md)
+  completely, including the `Closes #N` reference and a brief summary of
+  verification.

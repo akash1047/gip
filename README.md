@@ -15,7 +15,8 @@ archiving, indexing, or feeding into other tools.
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines, branching workflow, and code of conduct.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines,
+branching workflow, and code of conduct.
 
 ## License
 
