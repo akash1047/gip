@@ -9,10 +9,9 @@ README.md for the product description.
 
 ## State
 
-The only implementation is `.githooks/pre-commit`, a Bash warning hook for
-staged Markdown lines over 80 characters. Enable it with
-`git config core.hooksPath .githooks`. There is no chosen application
-language/framework or build system yet.
+Go CLI (`go build ./...`), single `main` package, stdlib only so far. Plus
+`.githooks/pre-commit`, a Bash warning hook for staged Markdown lines over 80
+characters. Enable it with `git config core.hooksPath .githooks`.
 
 ## Guidelines
 
