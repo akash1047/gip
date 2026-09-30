@@ -1,11 +1,10 @@
 ## Closes
 
 <!--
-By default, every PR should close exactly one issue (`Closes #N`).
-As an explicit exception, a PR may solve multiple issues, or partially
-solve one or more issues, as long as it is explicit about it (e.g.
-`Addresses #N, #M` or `Addresses #N (partial)`) — but such PRs must
-NOT use closing keywords (`Closes #N`). Arbitrary PRs with no linked
+A PR must link at least one issue. It can solve one or more issues; for
+each linked issue, use `Closes #N` only if this PR fully resolves it,
+or `Addresses #N (partial)` if it doesn't. These can mix, e.g.
+`Closes #12, Addresses #14 (partial)`. Arbitrary PRs with no linked
 issue are discouraged.
 -->
 Closes #
