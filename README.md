@@ -46,11 +46,16 @@ export GIP_GITHUB_TOKEN=your-token
 ./gip doctor
 ./gip fetch owner/repo#123
 ./gip fetch -o owner-repo-123.md owner/repo#123
+./gip fetch --format=metadata,title,body owner/repo#123
 ```
 
-`fetch` prints markdown (frontmatter + body) to stdout by default. Use
-`-o` or `--output` with a path to write a file instead. `doctor` checks
-that `GIP_GITHUB_TOKEN` is set and authenticates against the GitHub API.
+`fetch` prints a title heading and the body (including comments) to stdout by
+default. Use `--format` with a comma-separated list of `metadata` (YAML front
+matter), `title`, and `body` to choose which sections to print and in what
+order — they're concatenated in the order given, e.g. `--format=body,title`
+prints the body before the title. Use `-o` or `--output` with a path to write
+a file instead. `doctor` checks that `GIP_GITHUB_TOKEN` is set and
+authenticates against the GitHub API.
 
 ## Idea
 

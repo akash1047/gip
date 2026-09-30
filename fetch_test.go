@@ -59,16 +59,22 @@ func TestRunFetchOutput(t *testing.T) {
 	defer func() { http.DefaultClient.Transport = origTransport }()
 
 	for _, tc := range []struct {
-		name string
-		flag string
+		name, flag string
+		args       []string
+		want       string
 	}{
 		{name: "stdout"},
 		{name: "short flag", flag: "-o"},
 		{name: "long flag", flag: "--output"},
+		{name: "body only", args: []string{"--format=body"}, want: "test body\n"},
+		{name: "title and body", args: []string{"--format=title,body"}, want: "# test issue\n\ntest body\n"},
+		{name: "body and title reordered", args: []string{"--format=body,title"}, want: "test body\n\n# test issue\n"},
+		{name: "metadata and body", args: []string{"--format=metadata,body"}, want: "---\n\ntest body\n"},
+		{name: "metadata and title", args: []string{"--format=metadata,title"}, want: "---\n\n# test issue\n"},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
 			t.Chdir(t.TempDir())
-			args := []string{"o/r#42"}
+			args := append(append([]string{}, tc.args...), "o/r#42")
 			if tc.flag != "" {
 				args = []string{tc.flag, "issue.md", "o/r#42"}
 			}
@@ -89,8 +95,17 @@ func TestRunFetchOutput(t *testing.T) {
 				t.Fatal(err)
 			}
 			if tc.flag == "" {
-				if !strings.Contains(string(stdout), "test body") {
-					t.Errorf("stdout = %q, want markdown", stdout)
+				if tc.want != "" {
+					got := string(stdout)
+					if strings.HasPrefix(tc.want, "---") {
+						if !strings.HasPrefix(got, "---\n") || !strings.HasSuffix(got, tc.want) {
+							t.Errorf("stdout = %q, want metadata and suffix %q", got, tc.want)
+						}
+					} else if got != tc.want {
+						t.Errorf("stdout = %q, want %q", got, tc.want)
+					}
+				} else if !strings.Contains(string(stdout), "# test issue\n\ntest body\n") {
+					t.Errorf("stdout = %q, want default title+body markdown", stdout)
 				}
 				if _, err := os.Stat("o-r-42.md"); !os.IsNotExist(err) {
 					t.Errorf("default output file exists or stat failed: %v", err)
@@ -105,6 +120,15 @@ func TestRunFetchOutput(t *testing.T) {
 				t.Errorf("output file = %q, error = %v", data, err)
 			}
 		})
+	}
+}
+
+func TestParseFormat(t *testing.T) {
+	if got, err := parseFormat("body,title"); err != nil || strings.Join(got, ",") != "body,title" {
+		t.Errorf("parseFormat(%q) = %q, %v", "body,title", got, err)
+	}
+	if _, err := parseFormat("body,bogus"); err == nil {
+		t.Errorf("parseFormat(%q): expected error", "body,bogus")
 	}
 }
 
@@ -123,7 +147,7 @@ func TestIssueMarkdown(t *testing.T) {
 		},
 	}
 
-	got := issueMarkdown(issue)
+	got := issueMarkdown(issue, []string{"metadata", "title", "body"})
 
 	for _, want := range []string{
 		`title: "Title with \"quotes\""`,
@@ -136,5 +160,12 @@ func TestIssueMarkdown(t *testing.T) {
 		if !strings.Contains(got, want) {
 			t.Errorf("issueMarkdown() missing %q, got:\n%s", want, got)
 		}
+	}
+	if got := issueMarkdown(issue, []string{"metadata", "title"}); strings.Contains(got, "the body") || strings.Contains(got, "a comment") {
+		t.Errorf("issueMarkdown without body includes body or comments: %q", got)
+	}
+
+	if got := issueMarkdown(issue, []string{"body", "title"}); !strings.HasPrefix(got, "the body") {
+		t.Errorf("issueMarkdown(body,title) = %q, want body before title", got)
 	}
 }
