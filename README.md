@@ -35,7 +35,7 @@ GOOS=windows GOARCH=amd64 go build -o gip-windows-amd64.exe .
 Fetch a public issue or PR without a token:
 
 ```bash
-gip fetch owner/repo#123
+./gip fetch owner/repo#123
 ```
 
 Optionally set a fine-grained GitHub PAT for a higher API rate limit. Use
@@ -43,9 +43,9 @@ Optionally set a fine-grained GitHub PAT for a higher API rate limit. Use
 
 ```bash
 export GIP_GITHUB_TOKEN=your-token
-gip doctor
-gip fetch owner/repo#123
-gip fetch -o owner-repo-123.md owner/repo#123
+./gip doctor
+./gip fetch owner/repo#123
+./gip fetch -o owner-repo-123.md owner/repo#123
 ```
 
 `fetch` prints markdown (frontmatter + body) to stdout by default. Use
