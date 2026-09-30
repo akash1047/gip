@@ -6,6 +6,30 @@ Converts GitHub Issues and Pull Requests into structured markdown files.
 
 Go CLI with `fetch` and `doctor` subcommands.
 
+## Build
+
+Build from the repository root; the binary is written there and can be run as
+`./gip`:
+
+```bash
+go build -o gip .
+```
+
+Go can cross-compile without extra tooling. Set `GOOS` and `GOARCH` for the
+target; these examples build amd64 binaries for Linux, macOS, and Windows:
+
+```bash
+GOOS=linux GOARCH=amd64 go build -o gip-linux-amd64 .
+```
+
+```bash
+GOOS=darwin GOARCH=amd64 go build -o gip-darwin-amd64 .
+```
+
+```bash
+GOOS=windows GOARCH=amd64 go build -o gip-windows-amd64.exe .
+```
+
 ## Usage
 
 Set a fine-grained GitHub PAT, then check it works and fetch an issue or PR:
