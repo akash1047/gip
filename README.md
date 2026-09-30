@@ -14,11 +14,12 @@ Set a fine-grained GitHub PAT, then check it works and fetch an issue or PR:
 export GIP_GITHUB_TOKEN=your-token
 gip doctor
 gip fetch owner/repo#123
+gip fetch -o owner-repo-123.md owner/repo#123
 ```
 
-`fetch` writes `owner-repo-123.md` (frontmatter + body) in the current
-directory. `doctor` checks that `GIP_GITHUB_TOKEN` is set and that it
-authenticates against the GitHub API.
+`fetch` prints markdown (frontmatter + body) to stdout by default. Use
+`-o` or `--output` with a path to write a file instead. `doctor` checks
+that `GIP_GITHUB_TOKEN` is set and authenticates against the GitHub API.
 
 ## Idea
 
