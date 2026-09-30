@@ -15,6 +15,8 @@ func main() {
 	switch cmd := os.Args[1]; cmd {
 	case "fetch":
 		err = runFetch(os.Args[2:])
+	case "doctor":
+		err = runDoctor(os.Args[2:])
 	default:
 		fmt.Fprintf(os.Stderr, "gip: unknown command %q\n", cmd)
 		os.Exit(1)
