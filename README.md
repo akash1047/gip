@@ -8,7 +8,14 @@ Go CLI with `fetch` and `doctor` subcommands.
 
 ## Usage
 
-Set a fine-grained GitHub PAT, then check it works and fetch an issue or PR:
+Fetch a public issue or PR without a token:
+
+```bash
+gip fetch owner/repo#123
+```
+
+Optionally set a fine-grained GitHub PAT for a higher API rate limit. Use
+`doctor` to check that the token works:
 
 ```bash
 export GIP_GITHUB_TOKEN=your-token
@@ -17,8 +24,9 @@ gip fetch owner/repo#123
 ```
 
 `fetch` writes `owner-repo-123.md` (frontmatter + body) in the current
-directory. `doctor` checks that `GIP_GITHUB_TOKEN` is set and that it
-authenticates against the GitHub API.
+directory. Without a token, `fetch` uses unauthenticated API requests.
+`doctor` checks that `GIP_GITHUB_TOKEN` is set and that it authenticates
+against the GitHub API.
 
 ## Idea
 

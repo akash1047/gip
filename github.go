@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -59,10 +60,7 @@ type commentWire struct {
 // FetchIssue retrieves an issue or PR (title, body, metadata) plus its
 // comments from the GitHub REST API.
 func FetchIssue(owner, repo string, number int) (*Issue, error) {
-	token, err := githubToken()
-	if err != nil {
-		return nil, err
-	}
+	token := os.Getenv(tokenEnvVar)
 
 	var iw issueWire
 	issueURL := fmt.Sprintf("%s/repos/%s/%s/issues/%d", githubAPIBase, owner, repo, number)
@@ -94,14 +92,15 @@ func FetchIssue(owner, repo string, number int) (*Issue, error) {
 	}, nil
 }
 
-// getJSON performs an authenticated GET and decodes the JSON response body
-// into out.
+// getJSON performs a GET and decodes the JSON response body into out.
 func getJSON(token, url string, out any) error {
 	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
 		return err
 	}
-	req.Header.Set("Authorization", "Bearer "+token)
+	if token != "" {
+		req.Header.Set("Authorization", "Bearer "+token)
+	}
 	req.Header.Set("Accept", "application/vnd.github+json")
 
 	resp, err := http.DefaultClient.Do(req)
