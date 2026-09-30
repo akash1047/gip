@@ -6,10 +6,40 @@ Converts GitHub Issues and Pull Requests into structured markdown files.
 
 Go CLI with `fetch`, `doctor`, and `mcp` subcommands.
 
+## Install
+
+Download the binary for your system from the
+[latest release](https://github.com/akash1047/gip/releases/latest):
+
+| System | Asset |
+| --- | --- |
+| Linux amd64 | `gip-linux-amd64` |
+| macOS amd64 | `gip-darwin-amd64` |
+| Windows amd64 | `gip-windows-amd64.exe` |
+
+On Linux, run this from the download directory:
+
+```bash
+sudo install -m 755 gip-linux-amd64 /usr/local/bin/gip
+```
+
+On macOS, run this from the download directory:
+
+```bash
+sudo install -m 755 gip-darwin-amd64 /usr/local/bin/gip
+```
+
+On Windows, rename `gip-windows-amd64.exe` to `gip.exe` and move it into a
+folder such as `%USERPROFILE%\bin`. Add that folder to your user `Path` in
+Windows Environment Variables, then open a new terminal.
+
+Verify the installation with `gip fetch -h`.
+
 ## Build
 
 Build from the repository root; the binary is written there and can be run as
-`./gip`:
+`./gip` from that directory. Move it to a directory on your `PATH` to use
+`gip` from anywhere:
 
 ```bash
 go build -o gip .
@@ -35,7 +65,7 @@ GOOS=windows GOARCH=amd64 go build -o gip-windows-amd64.exe .
 Fetch a public issue or PR without a token:
 
 ```bash
-./gip fetch owner/repo#123
+gip fetch owner/repo#123
 ```
 
 Optionally set a fine-grained GitHub PAT for a higher API rate limit. Use
@@ -43,10 +73,10 @@ Optionally set a fine-grained GitHub PAT for a higher API rate limit. Use
 
 ```bash
 export GIP_GITHUB_TOKEN=your-token
-./gip doctor
-./gip fetch owner/repo#123
-./gip fetch -o owner-repo-123.md owner/repo#123
-./gip fetch --format=metadata,title,body owner/repo#123
+gip doctor
+gip fetch owner/repo#123
+gip fetch -o owner-repo-123.md owner/repo#123
+gip fetch --format=metadata,title,body owner/repo#123
 ```
 
 `fetch` prints a title heading and the body (including comments) to stdout by
@@ -60,9 +90,9 @@ the GitHub API. `GIP_GITHUB_TOKEN` takes precedence over `GITHUB_TOKEN`.
 Run the MCP server over stdio (the default) or Streamable HTTP at `/mcp`:
 
 ```bash
-./gip mcp
-./gip mcp --transport=http --addr=:8080
-# equivalent: ./gip mcp --http=:8080
+gip mcp
+gip mcp --transport=http --addr=:8080
+# equivalent: gip mcp --http=:8080
 ```
 
 The server exposes `gip_fetch` with a required `ref` (`owner/repo#123`) and
@@ -80,7 +110,7 @@ claude mcp add gip -- /path/to/gip mcp
 **Claude Code**, HTTP:
 
 ```bash
-./gip mcp --http=:8080
+gip mcp --http=:8080
 claude mcp add --transport http gip http://localhost:8080/mcp
 ```
 
