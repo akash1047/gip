@@ -4,18 +4,21 @@ Converts GitHub Issues and Pull Requests into structured markdown files.
 
 ## Status
 
-Early stage — Go CLI in progress. `fetch` subcommand implemented.
+Go CLI with `fetch` and `doctor` subcommands.
 
 ## Usage
 
-Set a fine-grained GitHub PAT, then fetch an issue or PR:
+Set a fine-grained GitHub PAT, then check it works and fetch an issue or PR:
 
 ```bash
 export GIP_GITHUB_TOKEN=your-token
+gip doctor
 gip fetch owner/repo#123
 ```
 
-Writes `owner-repo-123.md` (frontmatter + body) in the current directory.
+`fetch` writes `owner-repo-123.md` (frontmatter + body) in the current
+directory. `doctor` checks that `GIP_GITHUB_TOKEN` is set and that it
+authenticates against the GitHub API.
 
 ## Idea
 
