@@ -32,7 +32,14 @@ GOOS=windows GOARCH=amd64 go build -o gip-windows-amd64.exe .
 
 ## Usage
 
-Set a fine-grained GitHub PAT, then check it works and fetch an issue or PR:
+Fetch a public issue or PR without a token:
+
+```bash
+gip fetch owner/repo#123
+```
+
+Optionally set a fine-grained GitHub PAT for a higher API rate limit. Use
+`doctor` to check that the token works:
 
 ```bash
 export GIP_GITHUB_TOKEN=your-token
