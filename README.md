@@ -4,7 +4,7 @@ Converts GitHub Issues and Pull Requests into structured markdown files.
 
 ## Status
 
-Early stage — no implementation yet.
+Early stage — Go CLI in progress. No subcommands yet.
 
 ## Idea
 
