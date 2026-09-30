@@ -42,8 +42,12 @@ characters. Enable it with `git config core.hooksPath .githooks`.
 
 ## Issues and PRs
 
-- Every change starts as a GitHub issue. Every PR must close exactly one
-  issue (`Closes #N`). Arbitrary PRs with no linked issue are discouraged.
+- Every change starts as a GitHub issue. By default, every PR should close
+  exactly one issue (`Closes #N`). As an explicit exception, a PR may solve
+  multiple issues, or partially solve one or more issues, as long as it is
+  explicit about it (e.g. `Addresses #N, #M` or `Addresses #N (partial)`) —
+  but such PRs must NOT use closing keywords (`Closes #N`). Arbitrary PRs
+  with no linked issue are discouraged.
 - Use the templates in `.github/ISSUE_TEMPLATE/` (bug report, feature
   request) and `.github/pull_request_template.md` when opening issues/PRs.
 

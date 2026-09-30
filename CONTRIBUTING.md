@@ -21,8 +21,12 @@ Everyone contributing to GIP is expected to adhere to our
    - Open a feature request or bug report using the templates in
      [`.github/ISSUE_TEMPLATE/`](.github/ISSUE_TEMPLATE/).
    - Discuss proposed changes in the issue before starting implementation.
-2. **Every pull request must close exactly one issue.**
+2. **By default, every pull request should close exactly one issue.**
    - Link the issue in your PR description using `Closes #N`.
+   - As an explicit exception, a PR may solve multiple issues, or partially
+     solve one or more issues, as long as it is explicit about it (e.g.
+     `Addresses #N, #M` or `Addresses #N (partial)`) — but such PRs must
+     NOT use closing keywords (`Closes #N`).
    - Arbitrary pull requests without an associated issue are discouraged.
 
 ## Git Branching Model
@@ -68,5 +72,6 @@ specification:
 
 - Open pull requests against the `develop` branch.
 - Fill out the [Pull Request Template](.github/pull_request_template.md)
-  completely, including the `Closes #N` reference and a brief summary of
+  completely, including the issue reference (`Closes #N`, or
+  `Addresses #N, #M` / `Addresses #N (partial)`) and a brief summary of
   verification.
