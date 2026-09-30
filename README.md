@@ -69,6 +69,39 @@ The server exposes `gip_fetch` with a required `ref` (`owner/repo#123`) and
 optional `format` (default `title,body`). It returns the same Markdown as
 `fetch`. Stdio stdout carries MCP messages only; diagnostics go to stderr.
 
+### Connecting an MCP client
+
+**Claude Code**, stdio (default):
+
+```bash
+claude mcp add gip -- /path/to/gip mcp
+```
+
+**Claude Code**, HTTP:
+
+```bash
+./gip mcp --http=:8080
+claude mcp add --transport http gip http://localhost:8080/mcp
+```
+
+**Claude Desktop** (stdio only) — add to `claude_desktop_config.json`
+(`~/Library/Application Support/Claude/claude_desktop_config.json` on
+macOS, `%APPDATA%\Claude\claude_desktop_config.json` on Windows):
+
+```json
+{
+  "mcpServers": {
+    "gip": {
+      "command": "/path/to/gip",
+      "args": ["mcp"]
+    }
+  }
+}
+```
+
+Restart the client after editing its config. Both transports above expose
+the same `gip_fetch` tool.
+
 ## Versioning
 
 Releases are tagged `vX.Y.Z` following [SemVer](https://semver.org). The
