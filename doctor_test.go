@@ -8,6 +8,7 @@ import (
 func TestRunDoctor(t *testing.T) {
 	t.Run("no token", func(t *testing.T) {
 		t.Setenv(tokenEnvVar, "")
+		t.Setenv("GITHUB_TOKEN", "")
 		if err := runDoctor(nil); err == nil {
 			t.Fatal("expected error when token is unset")
 		}

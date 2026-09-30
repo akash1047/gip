@@ -2,15 +2,16 @@ package main
 
 import "fmt"
 
-// runDoctor implements the `doctor` subcommand: verifies GIP_GITHUB_TOKEN is
-// set and that it actually authenticates against the GitHub API.
+// runDoctor implements the `doctor` subcommand: verifies a GitHub token
+// (GIP_GITHUB_TOKEN or GITHUB_TOKEN) is set and that it actually
+// authenticates against the GitHub API.
 func runDoctor(args []string) error {
 	if len(args) != 0 {
 		return fmt.Errorf("usage: gip doctor")
 	}
 
 	token, tokenErr := githubToken()
-	printCheck("GIP_GITHUB_TOKEN is set", tokenErr)
+	printCheck("GitHub token is set", tokenErr)
 
 	var authErr error
 	if tokenErr == nil {

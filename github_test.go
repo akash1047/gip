@@ -60,6 +60,7 @@ func TestFetchIssue(t *testing.T) {
 
 func TestFetchIssueWithoutToken(t *testing.T) {
 	t.Setenv(tokenEnvVar, "")
+	t.Setenv("GITHUB_TOKEN", "")
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/repos/o/r/issues/42", func(w http.ResponseWriter, r *http.Request) {

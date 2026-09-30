@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"os"
 	"time"
 )
 
@@ -60,7 +59,7 @@ type commentWire struct {
 // FetchIssue retrieves an issue or PR (title, body, metadata) plus its
 // comments from the GitHub REST API.
 func FetchIssue(owner, repo string, number int) (*Issue, error) {
-	token := os.Getenv(tokenEnvVar)
+	token, _ := githubToken() // Public issues work without a token.
 
 	var iw issueWire
 	issueURL := fmt.Sprintf("%s/repos/%s/%s/issues/%d", githubAPIBase, owner, repo, number)
