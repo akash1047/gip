@@ -57,6 +57,15 @@ prints the body before the title. Use `-o` or `--output` with a path to write
 a file instead. `doctor` checks that `GIP_GITHUB_TOKEN` is set and
 authenticates against the GitHub API.
 
+## Versioning
+
+Releases are tagged `vX.Y.Z` following [SemVer](https://semver.org). The
+project is pre-1.0 (starting at `v0.1.0`): the API/CLI surface has no
+stability guarantee yet, so a `MINOR` bump marks a breaking change and
+`PATCH` marks a backward-compatible fix or docs change, while `MAJOR` stays
+at 0 until the maintainer decides the surface is stable enough for `v1.0.0`.
+Tags are cut on `main` after a `develop` → `main` merge.
+
 ## Idea
 
 Given a GitHub repo (and optionally an issue/PR number), fetch the issue or

@@ -40,6 +40,19 @@ characters. Enable it with `git config core.hooksPath .githooks`.
   git push origin develop
   ```
 
+- To cut a release, after `develop` has been merged into `main`: tag `main`
+  at the merge commit with the next `vX.Y.Z` (see README's Versioning
+  section for the version-bump rules) and push the tag — this is what
+  triggers the release binaries workflow. Not automated, not performed by
+  an agent.
+
+  ```bash
+  git checkout main
+  git pull origin main
+  git tag -a vX.Y.Z -m "vX.Y.Z"
+  git push origin vX.Y.Z
+  ```
+
 ## Issues and PRs
 
 - Every change starts as a GitHub issue. By default, every PR should close
