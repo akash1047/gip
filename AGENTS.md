@@ -30,7 +30,23 @@ characters. Enable it with `git config core.hooksPath .githooks`.
 - All changes land via short-lived PR branches, raised against `develop`.
 - Default merge policy for `develop` ← PR branch: **squash merge**.
 - `develop` → `main` is done manually by the human owner. Not automated,
-  not performed by an agent.
+  not performed by an agent. It is a direct local fast-forward push, **not**
+  a GitHub PR — GitHub's PR merge UI only offers merge commit, squash, or
+  rebase, none of which fast-forward, so using it here would either add a
+  merge commit or diverge `main`/`develop` SHAs and break the `--ff-only`
+  sync below. If branch protection blocks direct pushes to `main`, the owner
+  needs an exception for this step, or must fall back to a "Merge commit" PR
+  (accepting the extra merge commit).
+
+  ```bash
+  git fetch origin
+  git checkout develop
+  git merge --ff-only origin/main
+  git checkout main
+  git merge --ff-only origin/develop
+  git push origin main
+  ```
+
 - To sync `develop` after a `main` merge:
 
   ```bash
