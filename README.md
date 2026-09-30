@@ -4,7 +4,7 @@ Converts GitHub Issues and Pull Requests into structured markdown files.
 
 ## Status
 
-Go CLI with `fetch` and `doctor` subcommands.
+Go CLI with `fetch`, `doctor`, and `mcp` subcommands.
 
 ## Build
 
@@ -54,8 +54,20 @@ default. Use `--format` with a comma-separated list of `metadata` (YAML front
 matter), `title`, and `body` to choose which sections to print and in what
 order — they're concatenated in the order given, e.g. `--format=body,title`
 prints the body before the title. Use `-o` or `--output` with a path to write
-a file instead. `doctor` checks that `GIP_GITHUB_TOKEN` is set and
-authenticates against the GitHub API.
+a file instead. `doctor` checks that a token is set and authenticates against
+the GitHub API. `GIP_GITHUB_TOKEN` takes precedence over `GITHUB_TOKEN`.
+
+Run the MCP server over stdio (the default) or Streamable HTTP at `/mcp`:
+
+```bash
+./gip mcp
+./gip mcp --transport=http --addr=:8080
+# equivalent: ./gip mcp --http=:8080
+```
+
+The server exposes `gip_fetch` with a required `ref` (`owner/repo#123`) and
+optional `format` (default `title,body`). It returns the same Markdown as
+`fetch`. Stdio stdout carries MCP messages only; diagnostics go to stderr.
 
 ## Versioning
 

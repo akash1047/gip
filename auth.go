@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-// tokenEnvVar is the only source of the GitHub PAT; no flag/config fallback (issue #6).
+// tokenEnvVar is the preferred source of the GitHub PAT.
 const tokenEnvVar = "GIP_GITHUB_TOKEN"
 
 // githubToken reads the PAT from the environment. Callers should invoke this
@@ -14,7 +14,10 @@ const tokenEnvVar = "GIP_GITHUB_TOKEN"
 func githubToken() (string, error) {
 	token := os.Getenv(tokenEnvVar)
 	if token == "" {
-		return "", errors.New(tokenEnvVar + " environment variable is not set")
+		token = os.Getenv("GITHUB_TOKEN")
+	}
+	if token == "" {
+		return "", errors.New(tokenEnvVar + " or GITHUB_TOKEN environment variable is not set")
 	}
 	return token, nil
 }

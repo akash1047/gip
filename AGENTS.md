@@ -9,7 +9,8 @@ README.md for the product description.
 
 ## State
 
-Go CLI (`go build ./...`), single `main` package, stdlib only so far. Plus
+Go CLI (`go build ./...`), single `main` package, with the official Go MCP SDK
+for the `mcp` subcommand. Plus
 `.githooks/pre-commit`, a Bash warning hook for staged Markdown lines over 80
 characters. Enable it with `git config core.hooksPath .githooks`.
 
