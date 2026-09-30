@@ -37,7 +37,9 @@ Everyone contributing to GIP is expected to adhere to our
   from and targeted against `develop`.
 - **Merging:** Pull requests into `develop` are squash-merged.
 - **Releases:** Merging `develop` into `main` is performed manually by the
-  repository maintainer.
+  repository maintainer, who then tags `main` with the next `vX.Y.Z` and
+  pushes the tag — see [AGENTS.md](AGENTS.md#git-branching) for the exact
+  steps and README's Versioning section for the version-bump rules.
 
 ### Workflow Example
 
