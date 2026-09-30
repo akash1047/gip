@@ -6,6 +6,30 @@ Converts GitHub Issues and Pull Requests into structured markdown files.
 
 Go CLI with `fetch` and `doctor` subcommands.
 
+## Build
+
+Build from the repository root; the binary is written there and can be run as
+`./gip`:
+
+```bash
+go build -o gip .
+```
+
+Go can cross-compile without extra tooling. Set `GOOS` and `GOARCH` for the
+target; these examples build amd64 binaries for Linux, macOS, and Windows:
+
+```bash
+GOOS=linux GOARCH=amd64 go build -o gip-linux-amd64 .
+```
+
+```bash
+GOOS=darwin GOARCH=amd64 go build -o gip-darwin-amd64 .
+```
+
+```bash
+GOOS=windows GOARCH=amd64 go build -o gip-windows-amd64.exe .
+```
+
 ## Usage
 
 Fetch a public issue or PR without a token:
@@ -21,12 +45,12 @@ Optionally set a fine-grained GitHub PAT for a higher API rate limit. Use
 export GIP_GITHUB_TOKEN=your-token
 gip doctor
 gip fetch owner/repo#123
+gip fetch -o owner-repo-123.md owner/repo#123
 ```
 
-`fetch` writes `owner-repo-123.md` (frontmatter + body) in the current
-directory. Without a token, `fetch` uses unauthenticated API requests.
-`doctor` checks that `GIP_GITHUB_TOKEN` is set and that it authenticates
-against the GitHub API.
+`fetch` prints markdown (frontmatter + body) to stdout by default. Use
+`-o` or `--output` with a path to write a file instead. `doctor` checks
+that `GIP_GITHUB_TOKEN` is set and authenticates against the GitHub API.
 
 ## Idea
 

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"os"
 	"strconv"
@@ -24,13 +25,25 @@ func parseRef(ref string) (owner, repo string, number int, err error) {
 	return owner, repo, number, nil
 }
 
-// runFetch implements the `fetch` subcommand: gip fetch owner/repo#123.
+// runFetch implements the `fetch` subcommand: gip fetch [-o path] owner/repo#123.
 func runFetch(args []string) error {
-	if len(args) != 1 {
-		return fmt.Errorf("usage: gip fetch owner/repo#123")
+	flags := flag.NewFlagSet("fetch", flag.ContinueOnError)
+	var output string
+	flags.StringVar(&output, "o", "", "write markdown to path")
+	flags.StringVar(&output, "output", "", "write markdown to path")
+	if err := flags.Parse(args); err != nil {
+		return err
+	}
+	if flags.NArg() != 1 {
+		return fmt.Errorf("usage: gip fetch [-o path] owner/repo#123")
+	}
+	var outputSet bool
+	flags.Visit(func(f *flag.Flag) { outputSet = true })
+	if outputSet && output == "" {
+		return fmt.Errorf("output path must not be empty")
 	}
 
-	owner, repo, number, err := parseRef(args[0])
+	owner, repo, number, err := parseRef(flags.Arg(0))
 	if err != nil {
 		return err
 	}
@@ -40,12 +53,14 @@ func runFetch(args []string) error {
 		return err
 	}
 
-	path := fmt.Sprintf("%s-%s-%d.md", owner, repo, number)
-	if err := os.WriteFile(path, []byte(issueMarkdown(issue)), 0o644); err != nil {
-		return fmt.Errorf("writing %s: %w", path, err)
+	markdown := issueMarkdown(issue)
+	if output == "" {
+		_, err = fmt.Fprint(os.Stdout, markdown)
+		return err
 	}
-
-	fmt.Println(path)
+	if err := os.WriteFile(output, []byte(markdown), 0o644); err != nil {
+		return fmt.Errorf("writing %s: %w", output, err)
+	}
 	return nil
 }
 
